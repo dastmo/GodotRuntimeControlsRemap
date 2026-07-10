@@ -2,7 +2,7 @@ extends Button
 class_name InputRemapButton
 
 
-static var current_awaiting_button: RemapButton = null
+static var current_awaiting_button: InputRemapButton = null
 
 
 @export var action: StringName
