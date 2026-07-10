@@ -1,5 +1,5 @@
 extends Button
-class_name RemapButton
+class_name InputRemapButton
 
 
 static var current_awaiting_button: RemapButton = null
@@ -7,6 +7,7 @@ static var current_awaiting_button: RemapButton = null
 
 @export var action: StringName
 @export var is_joypad: bool = false
+@export var awaiting_input_text: String = "..."
 
 
 var _is_button_valid: bool = false
@@ -38,7 +39,7 @@ func _on_button_pressed() -> void:
 		current_awaiting_button.set_button_text()
 		current_awaiting_button = null
 	
-	text = "..."
+	text = awaiting_input_text
 	release_focus()
 	current_awaiting_button = self
 
