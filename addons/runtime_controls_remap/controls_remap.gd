@@ -20,6 +20,7 @@ signal control_remapped(action: StringName)
 func _enter_tree() -> void:
 	_record_default_controls()
 	_load_customized_controls()
+	_validate_customized_controls()
 	
 	for action in _customized_controls:
 		InputMap.action_erase_events(action)
@@ -52,6 +53,13 @@ func _load_customized_controls() -> void:
 	file.close()
 	
 	control_remapped.emit(&"")
+
+
+func _validate_customized_controls() -> void:
+	for action in _customized_controls:
+		if not InputMap.has_action(action):
+			_customized_controls.clear()
+			return
 
 
 func _save_cutomized_controls() -> void:
@@ -141,3 +149,7 @@ func get_action_text(action: StringName) -> String:
 		return dict[action]
 	else:
 		return action
+
+
+func get_remappable_actions() -> Array:
+	return ProjectSettings.get_setting(SETTING_PATH)
