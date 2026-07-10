@@ -2,7 +2,7 @@
 extends EditorPlugin
 
 const SETTING_PATH: String = "addons/Controls Remap/Remappable Actions"
-const SETTING_VALUE: Array[String] = ["ui_up", "ui_down", "ui_left", "ui_right"]
+const SETTING_VALUE: Array[StringName] = [&"ui_up", &"ui_down", &"ui_left", &"ui_right"]
 
 
 func _enable_plugin() -> void:
