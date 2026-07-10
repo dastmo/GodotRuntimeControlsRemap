@@ -8,10 +8,6 @@
 
 config_version=5
 
-[addons]
-
-"Controls Remap/Remappable Actions"=Array[String](["ui_up", "ui_down", "ui_left", "ui_right"])
-
 [application]
 
 config/name="Runtime Controls Remap"
