@@ -8,16 +8,28 @@
 
 config_version=5
 
+[addons]
+
+"Controls Remap/Remappable Actions"=Array[String](["ui_up", "ui_down", "ui_left", "ui_right"])
+
 [application]
 
 config/name="Runtime Controls Remap"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+ControlsRemap="*uid://d252u3gj57frg"
+
 [display]
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/runtime_controls_remap/plugin.cfg")
 
 [physics]
 
