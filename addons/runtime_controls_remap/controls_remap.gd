@@ -3,6 +3,7 @@ extends Node
 
 const SETTING_PATH: String = "addons/Controls Remap/Remappable Actions"
 const EVENTS_TEXT_DICTIONARY_PATH: String = "addons/Controls Remap/Events Dictionary"
+const ACTIONS_TEXT_DICTIONARY_PATH: String = "addons/Controls Remap/Action Names Dictionary"
 
 
 var _action_remap_requested: StringName = &""
@@ -132,3 +133,11 @@ func get_button_text(event: InputEvent) -> String:
 		return dict[event.as_text()]
 	else:
 		return event.as_text()
+
+
+func get_action_text(action: StringName) -> String:
+	var dict: Dictionary = ProjectSettings.get_setting(ACTIONS_TEXT_DICTIONARY_PATH)
+	if dict.has(action):
+		return dict[action]
+	else:
+		return action

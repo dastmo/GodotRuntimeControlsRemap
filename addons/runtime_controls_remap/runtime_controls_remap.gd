@@ -5,6 +5,8 @@ const SETTING_PATH: String = "addons/Controls Remap/Remappable Actions"
 const SETTING_VALUE: Array[StringName] = []
 const EVENTS_TEXT_DICTIONARY_PATH: String = "addons/Controls Remap/Events Dictionary"
 const EVENTS_DICTIONARY_VALUE: Dictionary[String, String] = {}
+const ACTIONS_TEXT_DICTIONARY_PATH: String = "addons/Controls Remap/Action Names Dictionary"
+const ACTIONS_TEXT_DICTIONARY_VALUE: Dictionary[StringName, String] = {}
 
 
 func _enable_plugin() -> void:
@@ -13,6 +15,9 @@ func _enable_plugin() -> void:
 	
 	if not ProjectSettings.has_setting(EVENTS_TEXT_DICTIONARY_PATH):
 		ProjectSettings.set_setting(EVENTS_TEXT_DICTIONARY_PATH, EVENTS_DICTIONARY_VALUE)
+	
+	if not ProjectSettings.has_setting(ACTIONS_TEXT_DICTIONARY_PATH):
+		ProjectSettings.set_setting(ACTIONS_TEXT_DICTIONARY_PATH, ACTIONS_TEXT_DICTIONARY_VALUE)
 	
 	add_autoload_singleton("ControlsRemap", "res://addons/runtime_controls_remap/controls_remap.gd")
 
