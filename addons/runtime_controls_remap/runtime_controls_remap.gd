@@ -25,13 +25,3 @@ func _disable_plugin() -> void:
 		ProjectSettings.set_setting(EVENTS_TEXT_DICTIONARY_PATH, null)
 	
 	remove_autoload_singleton("ControlsRemap")
-
-
-func _enter_tree() -> void:
-	# Initialization of the plugin goes here.
-	pass
-
-
-func _exit_tree() -> void:
-	# Clean-up of the plugin goes here.
-	pass
