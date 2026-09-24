@@ -15,16 +15,17 @@ var _is_button_valid: bool = false
 
 
 func _ready() -> void:
-	if ControlsRemap.is_action_remappable(action):
-		_is_button_valid = true
-	else:
-		printerr("Action with name '%s' is not remappable." % action)
-	
-	if _is_button_valid and init_button_on_ready:
+	if init_button_on_ready:
 		_init_button()
 
 
 func _init_button() -> void:
+	if ControlsRemap.is_action_remappable(action):
+		_is_button_valid = true
+	else:
+		printerr("Action with name '%s' is not remappable." % action)
+		return
+	
 	pressed.connect(_on_button_pressed)
 	ControlsRemap.control_remapped.connect(_on_control_remapped)
 	set_button_text()
@@ -44,6 +45,7 @@ func _on_button_pressed() -> void:
 	
 	text = awaiting_input_text
 	release_focus()
+	disabled = true
 	current_awaiting_button = self
 
 
@@ -57,6 +59,10 @@ func _on_control_remapped(remapped_action: StringName) -> void:
 	if remapped_action == action or remapped_action == &"":
 		set_button_text()
 		current_awaiting_button = null
+	
+	if disabled:
+		await get_tree().process_frame
+		disabled = false
 
 
 func _exit_tree() -> void:
