@@ -72,6 +72,23 @@ Only methods meant to be used from other scripts are referenced in the table bel
     <td>Array</td>
     <td>Returns the array of remappable actions, as defined in Project Settings (see section above).</td>
   </tr>
+  <tr>
+	<td>restore_all_default_inputs</td>
+	<td>N/A</td>
+	<td>void</td>
+	<td>Restores all input bindings to their defaults.</td>
+  </tr>
+  <tr>
+	<td>restore_default_input</td>
+	<td>
+		<ul>
+			<li>action: StringName</li>
+			<li>save_controls: bool = true</li>
+		</ul>
+	</td>
+	<td>void</td>
+	<td>Restores the default bindings for a specific input action. If save_controls is true, it also saves it over the custom binds file, so the reset persists between loads.</td>
+  </tr>
 </tbody></table>
 
 ## InputRemapButton
