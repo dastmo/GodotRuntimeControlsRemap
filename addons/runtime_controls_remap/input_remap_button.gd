@@ -8,6 +8,7 @@ static var current_awaiting_button: InputRemapButton = null
 @export var action: StringName
 @export var is_joypad: bool = false
 @export var awaiting_input_text: String = "..."
+@export var init_button_on_ready: bool = true
 
 
 var _is_button_valid: bool = false
@@ -16,9 +17,11 @@ var _is_button_valid: bool = false
 func _ready() -> void:
 	if ControlsRemap.is_action_remappable(action):
 		_is_button_valid = true
-		_init_button()
 	else:
 		printerr("Action with name '%s' is not remappable." % action)
+	
+	if _is_button_valid and init_button_on_ready:
+		_init_button()
 
 
 func _init_button() -> void:
@@ -27,7 +30,7 @@ func _init_button() -> void:
 	set_button_text()
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if not event.is_pressed() or not current_awaiting_button == self:
 		return
 	

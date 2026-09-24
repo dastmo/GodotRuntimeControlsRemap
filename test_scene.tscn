@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://brr6fd6ydi7qv"]
+
+[ext_resource type="Script" uid="uid://jqri48ay3cq0" path="res://test_scene.gd" id="1_uhqqe"]
+
+[node name="TestScene" type="Node2D" unique_id=886667267]
+script = ExtResource("1_uhqqe")
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=2000184815]
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer" unique_id=1394823694]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MarginContainer" unique_id=1925174263]
+layout_mode = 2

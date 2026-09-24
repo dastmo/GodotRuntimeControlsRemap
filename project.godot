@@ -8,6 +8,16 @@
 
 config_version=5
 
+[addons]
+
+"Controls Remap/Remappable Actions"=[&"ui_up", &"ui_down", &"ui_left", &"ui_right"]
+"Controls Remap/Events Dictionary"={
+"Joypad Motion on Axis 1 (Left Stick Y-Axis, Joystick 0 Y-Axis) with Value -1.00": "Left Stick Up"
+}
+"Controls Remap/Action Names Dictionary"={
+&"ui_down": "Drop Down"
+}
+
 [application]
 
 config/name="Runtime Controls Remap"
