@@ -85,3 +85,4 @@ If the button is created via code, its **action** property must be set before it
 |action|StringName|The action that this remap button is responsible for. It must be an action that is defined as remappable in Project Settings (see above). Otherwise, the button is considered invalid and will not work.|N/A|
 |is_joypad|bool|If true, then this button applies to the joypad mapping. Otherwise, it applies to the keyboard mapping.|false|
 |awaiting_input_text|String|The text to be displayed in the button after it was clicked and before a new input is set by the player.|"..."|
+|init_button_on_ready|bool|Whether the button should be initialised on _ready() if it is valid.|true|
