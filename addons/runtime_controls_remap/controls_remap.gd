@@ -23,8 +23,10 @@ func _enter_tree() -> void:
 	_validate_customized_controls()
 	
 	for action in _customized_controls:
-		InputMap.action_erase_events(action)
 		for event in _customized_controls[action]:
+			for old_event in InputMap.action_get_events(action):
+				if (_event_types_match(event, old_event)):
+					InputMap.action_erase_event(action, event)
 			InputMap.action_add_event(action, event)
 
 
@@ -69,6 +71,10 @@ func _save_cutomized_controls() -> void:
 
 
 func remap_input(action: StringName, event: InputEvent) -> void:
+	print("Before:")
+	for ev in InputMap.action_get_events(action):
+		print(ev.as_text())
+	
 	if (event is InputEventKey) or (event is InputEventMouseButton):
 		_remap_keyboard_input(action, event)
 	elif (event is InputEventJoypadButton) or (event is InputEventJoypadMotion):
@@ -76,48 +82,52 @@ func remap_input(action: StringName, event: InputEvent) -> void:
 	
 	control_remapped.emit(action)
 	_action_remap_requested = &""
+	
+	print("After:")
+	for ev in InputMap.action_get_events(action):
+		print(ev.as_text())
+	
 
 
 func _remap_keyboard_input(action: StringName, event: InputEvent) -> void:
 	for old_event in InputMap.action_get_events(action):
-		if (old_event is InputEventKey) or (old_event is InputEventMouseButton):
+		if _event_types_match(old_event, event):
 			InputMap.action_erase_event(action, old_event)
-			InputMap.action_add_event(action, event)
-			
 			if _customized_controls.has(action):
 				_customized_controls[action].erase(old_event)
-				_customized_controls[action].append(event)
-			else:
-				_customized_controls[action] = [event]
-			
-			break
+	
+	InputMap.action_add_event(action, event)
+	if _customized_controls.has(action):
+		_customized_controls[action].append(event)
+	else:
+		_customized_controls[action] = [event]
+	
 	_save_cutomized_controls()
 
 
 func _remap_joypad_input(action: StringName, event: InputEvent) -> void:
 	for old_event in InputMap.action_get_events(action):
-		if (old_event is InputEventJoypadButton) or (old_event is InputEventJoypadMotion):
+		if _event_types_match(old_event, event):
 			InputMap.action_erase_event(action, old_event)
-			InputMap.action_add_event(action, event)
-			
 			if _customized_controls.has(action):
-				_customized_controls[action].erase(old_event)
 				_customized_controls[action].append(event)
-			else:
-				_customized_controls[action] = [event]
-			
-			break
+	
+	if _customized_controls.has(action):
+		_customized_controls[action].append(event)
+	else:
+		_customized_controls[action] = [event]
+	InputMap.action_add_event(action, event)
 	_save_cutomized_controls()
 
 
-func _restore_all_default_inputs() -> void:
+func restore_all_default_inputs() -> void:
 	for action in ProjectSettings.get_setting(SETTING_PATH):
-		_restore_default_input(action, false)
+		restore_default_input(action, false)
 	
 	_save_cutomized_controls()
 
 
-func _restore_default_input(action: StringName, save_controls: bool = true) -> void:
+func restore_default_input(action: StringName, save_controls: bool = true) -> void:
 	if _customized_controls.has(action):
 		_customized_controls.erase(action)
 	
@@ -153,3 +163,9 @@ func get_action_text(action: StringName) -> String:
 
 func get_remappable_actions() -> Array:
 	return ProjectSettings.get_setting(SETTING_PATH)
+
+
+func _event_types_match(event1: InputEvent, event2: InputEvent) -> bool:
+	var event_1_is_joypad: bool = (event1 is InputEventJoypadButton or event1 is InputEventJoypadMotion)
+	var event_2_is_joypad: bool = (event2 is InputEventJoypadButton or event2 is InputEventJoypadMotion)
+	return event_1_is_joypad == event_2_is_joypad
