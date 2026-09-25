@@ -63,6 +63,7 @@ func _on_control_remapped(remapped_action: StringName) -> void:
 	if disabled:
 		await get_tree().process_frame
 		disabled = false
+		grab_focus()
 
 
 func _exit_tree() -> void:
