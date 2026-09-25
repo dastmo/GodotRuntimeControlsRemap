@@ -71,10 +71,6 @@ func _save_cutomized_controls() -> void:
 
 
 func remap_input(action: StringName, event: InputEvent) -> void:
-	print("Before:")
-	for ev in InputMap.action_get_events(action):
-		print(ev.as_text())
-	
 	if (event is InputEventKey) or (event is InputEventMouseButton):
 		_remap_keyboard_input(action, event)
 	elif (event is InputEventJoypadButton) or (event is InputEventJoypadMotion):
@@ -82,10 +78,6 @@ func remap_input(action: StringName, event: InputEvent) -> void:
 	
 	control_remapped.emit(action)
 	_action_remap_requested = &""
-	
-	print("After:")
-	for ev in InputMap.action_get_events(action):
-		print(ev.as_text())
 	
 
 
@@ -169,3 +161,17 @@ func _event_types_match(event1: InputEvent, event2: InputEvent) -> bool:
 	var event_1_is_joypad: bool = (event1 is InputEventJoypadButton or event1 is InputEventJoypadMotion)
 	var event_2_is_joypad: bool = (event2 is InputEventJoypadButton or event2 is InputEventJoypadMotion)
 	return event_1_is_joypad == event_2_is_joypad
+
+
+func is_action_customized_for_device(action: StringName, is_joypad: bool) -> bool:
+	var result: bool = false
+	
+	if not _customized_controls.has(action):
+		return result
+	
+	for event in _customized_controls[action]:
+		if (event is InputEventJoypadButton or event is InputEventJoypadMotion) == is_joypad:
+			result = true
+			break
+	
+	return result

@@ -46,31 +46,31 @@ Only methods meant to be used from other scripts are referenced in the table bel
     <td>remap_input</td>
     <td><ul><li>action: StringName</li><li>event: InputEvent</li></ul></td>
     <td>void</td>
-    <td>Remaps the passed action's event to the passed event. Dynamically distinguishes between keyboard/mouse and joypad inputs on its own.</td>
+	<td>Remaps the passed action's event to the passed event. Dynamically distinguishes between keyboard/mouse and joypad inputs on its own.</td>
   </tr>
   <tr>
-    <td>is_action_remappable</td>
-    <td>action: StringName</td>
-    <td>bool</td>
-    <td>Return true if the action can be remapped. Remappable actions are defined in the Project Settings (see section above).</td>
+	<td>is_action_remappable</td>
+	<td>action: StringName</td>
+	<td>bool</td>
+	<td>Return true if the action can be remapped. Remappable actions are defined in the Project Settings (see section above).</td>
   </tr>
   <tr>
-    <td>get_button_text</td>
-    <td>event: InputEvent</td>
-    <td>String</td>
-    <td>If a custom text is set for the passed event in Project Settings (see section above), it is returned by this method. Otherwise, it returns event.as_text()</td>
+	<td>get_button_text</td>
+	<td>event: InputEvent</td>
+	<td>String</td>
+	<td>If a custom text is set for the passed event in Project Settings (see section above), it is returned by this method. Otherwise, it returns event.as_text()</td>
   </tr>
   <tr>
-    <td>get_action_text</td>
-    <td>action: StringName</td>
-    <td>String</td>
-    <td>If a custom name is set for the action in Project Settings (see section above), it is returned by this method. Otherwise, it returns the action name, as set in the InputMap.</td>
+	<td>get_action_text</td>
+	<td>action: StringName</td>
+	<td>String</td>
+	<td>If a custom name is set for the action in Project Settings (see section above), it is returned by this method. Otherwise, it returns the action name, as set in the InputMap.</td>
   </tr>
   <tr>
-    <td>get_remappable_actions</td>
-    <td>N/A</td>
-    <td>Array</td>
-    <td>Returns the array of remappable actions, as defined in Project Settings (see section above).</td>
+	<td>get_remappable_actions</td>
+	<td>N/A</td>
+	<td>Array</td>
+	<td>Returns the array of remappable actions, as defined in Project Settings (see section above).</td>
   </tr>
   <tr>
 	<td>restore_all_default_inputs</td>
@@ -88,6 +88,17 @@ Only methods meant to be used from other scripts are referenced in the table bel
 	</td>
 	<td>void</td>
 	<td>Restores the default bindings for a specific input action. If save_controls is true, it also saves it over the custom binds file, so the reset persists between loads.</td>
+  </tr>
+  <tr>
+	<td>is_action_customized_for_device</td>
+	<td>
+		<ul>
+			<li>action: StringName</li>
+			<li>is_joypad: bool</li>
+		</ul>
+	</td>
+	<td>bool</td>
+	<td>Returns true if the action has been customized for the device type (joypad or keyboard).</td>
   </tr>
 </tbody></table>
 
